@@ -21,6 +21,8 @@ export const Title = styled.h2`
   font-size: 32px;
   color: ${(props) => props.theme.black};
   font-weight: 400;
+  margin-bottom: 50px;
+  text-align: center;
 
 `
 
