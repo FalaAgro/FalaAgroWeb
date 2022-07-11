@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
+  padding: 0 10px;
 `
 
 export const FormContainer = styled.div`
@@ -14,4 +15,17 @@ export const FormContainer = styled.div`
   border: 1px solid ${(props) => props.theme.lightGray};
   border-radius: 42px;
   align-items: center;
+`
+
+export const Title = styled.h2`
+  font-size: 32px;
+  color: ${(props) => props.theme.black};
+  font-weight: 400;
+
+`
+
+export const LogoImg = styled.img`
+  margin: 30px 0;
+  height: 60px;
+  width: auto;
 `

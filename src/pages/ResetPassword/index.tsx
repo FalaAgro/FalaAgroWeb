@@ -1,10 +1,13 @@
 import axios from "axios"
 import { useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+
 import { Button } from "../../components/Button"
 import { Input } from "../../components/Input"
 import { api } from "../../services/api"
-import { Container, FormContainer } from "./styles"
+import { Container, FormContainer, LogoImg, Title } from "./styles"
+
+import LogoSVG from "../../assets/logo.svg"
 
 export function ResetPassword() {
   const [password, setPassword] = useState('')
@@ -35,28 +38,32 @@ export function ResetPassword() {
   return (
     <Container>
       <FormContainer>
-
+        <LogoImg src={LogoSVG} />
+        <Title>Redefinir senha</Title>
         <Input
+          type='password'
           placeholder="Nova senha"
           value={password}
           onChange={event => setPassword(event.target.value)}
+          mt='50px'
           mb='25px'
         />
         <Input
+          type='password'
           placeholder="Cofirme a nova senha"
           value={password}
           onChange={event => setPassword(event.target.value)}
         />
-        {!isLoading ? (
-          <Button
-            type="button"
-            onClick={handleSubmit}
-          >
-            Trocar senha
-          </Button>
-        ) : (
-          <span>Loading...</span>
-        )}
+        <Button
+          type="button"
+          onClick={handleSubmit}
+          disabled={isLoading}
+          mt='70px'
+          mb='60px'
+          isLoading={isLoading}
+        >
+          Trocar senha
+        </Button>
       </FormContainer>
     </Container>
 
