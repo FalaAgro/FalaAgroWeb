@@ -1,7 +1,10 @@
 import axios from "axios"
 import { useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
+import { Button } from "../../components/Button"
+import { Input } from "../../components/Input"
 import { api } from "../../services/api"
+import { Container, FormContainer } from "./styles"
 
 export function ResetPassword() {
   const [password, setPassword] = useState('')
@@ -30,22 +33,32 @@ export function ResetPassword() {
   }
 
   return (
-    <div>
-      <input
-        value={password}
-        onChange={event => setPassword(event.target.value)}
-      />
-      {!isLoading ? (
-        <button
-          type="button"
-          onClick={handleSubmit}
-        >
-          Trocar senha
-        </button>
-      ) : (
-        <span>Loading...</span>
-      )}
-    </div>
+    <Container>
+      <FormContainer>
+
+        <Input
+          placeholder="Nova senha"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+          mb='25px'
+        />
+        <Input
+          placeholder="Cofirme a nova senha"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+        />
+        {!isLoading ? (
+          <Button
+            type="button"
+            onClick={handleSubmit}
+          >
+            Trocar senha
+          </Button>
+        ) : (
+          <span>Loading...</span>
+        )}
+      </FormContainer>
+    </Container>
 
   )
 }
