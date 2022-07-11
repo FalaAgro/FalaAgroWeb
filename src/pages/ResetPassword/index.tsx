@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { api } from "../../services/api"
@@ -5,12 +6,9 @@ import { api } from "../../services/api"
 export function ResetPassword() {
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const { token } = useParams()
+  const { search } = useLocation()
+  const token = search.slice(1)
 
-  // const a = useQuery
-  const test = useLocation()
-  console.log(test)
-  
   async function handleSubmit() {
     if (!password || !token) return
     setIsLoading(true)
@@ -18,13 +16,14 @@ export function ResetPassword() {
       token,
       password
     }
-    console.log(body)
 
     try {
       const response = await api.put('/users/reset-password', body)
-      alert(response.data)
+      alert(response.data.message)
     } catch (err) {
-      alert(err.message)
+      if (axios.isAxiosError(err)) {
+        alert(err.message)
+      }
     } finally {
       setIsLoading(false)
     }

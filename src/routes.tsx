@@ -3,8 +3,8 @@ import {
   Routes as Switch,
   Route,
 } from "react-router-dom"
-import { ResetPassword } from "./pages/ResetPassword"
 
+import { ResetPassword } from "./pages/ResetPassword"
 
 export function Routes() {
   return (
