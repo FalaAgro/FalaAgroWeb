@@ -10,7 +10,7 @@ export function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
       </Switch>
     </BrowserRouter>
   )
