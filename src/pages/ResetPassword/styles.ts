@@ -31,3 +31,15 @@ export const LogoImg = styled.img`
   height: 60px;
   width: auto;
 `
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const ErrorMsg = styled.span`
+  font-size: 14px;
+  font-weight: 400;
+  color: red;
+  margin-left: 15px;
+`

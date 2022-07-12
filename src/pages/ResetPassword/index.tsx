@@ -1,14 +1,18 @@
 import axios from "axios"
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
-
+import * as yup from "yup"
 import { Button } from "../../components/Button"
 import { Input } from "../../components/Input"
 import { api } from "../../services/api"
-import { Container, FormContainer, LogoImg, Title } from "./styles"
+import { Container, ErrorMsg, FormContainer, InputContainer, LogoImg, Title } from "./styles"
 
 import LogoSVG from "../../assets/logo.svg"
-import { Formik } from "formik"
+import { ErrorMessage, Formik } from "formik"
+
+const minError = 'Mínimo de 8 caracteres'
+const requiredError = 'Campo obrigatório'
+const samePasswordError = 'As senhas devem ser iguais'
 
 interface valuesBody {
   password: string
@@ -44,34 +48,45 @@ export function ResetPassword() {
       <FormContainer>
         <LogoImg src={LogoSVG} />
         {!isDone ? (
-
           <Formik
             initialValues={{
               password: '',
               confirmPassword: ''
             }}
+            validationSchema={yup.object().shape({
+              password: yup.string().required(requiredError).min(8, minError),
+              confirmPassword: yup.string().required(requiredError).oneOf([yup.ref('password'), null], samePasswordError),
+            })}
             onSubmit={handleSubmitForm}
           >
             {({ handleSubmit, values, handleChange, handleBlur }) => (
               <>
                 <Title>Redefinir senha</Title>
-                <Input
-                  type='password'
-                  name="password"
-                  placeholder="Nova senha"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  mb='25px'
-                />
-                <Input
-                  type='password'
-                  placeholder="Cofirme a nova senha"
-                  name="confirmPassword"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                <InputContainer>
+                  <Input
+                    type='password'
+                    name="password"
+                    placeholder="Nova senha"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <ErrorMessage name="password">
+                    {msg => <ErrorMsg>{msg}</ErrorMsg>}
+                  </ErrorMessage>
+                  <Input
+                    type='password'
+                    placeholder="Cofirme a nova senha"
+                    name="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    mt='25px'
+                  />
+                  <ErrorMessage name="confirmPassword">
+                    {msg => <ErrorMsg>{msg}</ErrorMsg>}
+                  </ErrorMessage>
+                </InputContainer>
                 <Button
                   type="button"
                   onClick={() => handleSubmit()}

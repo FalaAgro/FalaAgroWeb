@@ -15,10 +15,11 @@ export const ButtonContainer = styled.button<{ mt?: string, mb?: string }>`
   cursor: pointer;
   
   :hover {
-    background: ${(props) => props.theme.black};
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
   
   :disabled {
+    box-shadow: none;
     background: ${(props) => props.theme.lightGray};
     cursor: default;
   }
