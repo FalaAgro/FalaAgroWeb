@@ -54,7 +54,10 @@ export function ResetPassword() {
               confirmPassword: ''
             }}
             validationSchema={yup.object().shape({
-              password: yup.string().required(requiredError).min(8, minError),
+              password: yup.string()
+							.required('Senha obrigatória!')
+							.min(6, 'Senha é muito curta, mínimo de ${min} caracteres!')
+							.matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{0,}$/, 'Senha deve conter apenas letras e números!'),
               confirmPassword: yup.string().required(requiredError).oneOf([yup.ref('password'), null], samePasswordError),
             })}
             onSubmit={handleSubmitForm}
