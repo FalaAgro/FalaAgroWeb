@@ -10,9 +10,10 @@ import { Container, ErrorMsg, FormContainer, InputContainer, LogoImg, Title } fr
 import LogoSVG from "../../assets/logo.svg"
 import { ErrorMessage, Formik } from "formik"
 
-const minError = 'Mínimo de 8 caracteres'
+const minError =  'Senha é muito curta, mínimo de ${min} caracteres!'
 const requiredError = 'Campo obrigatório'
 const samePasswordError = 'As senhas devem ser iguais'
+const matchError = 'Senha deve conter apenas letras e números!'
 
 interface valuesBody {
   password: string
@@ -55,9 +56,9 @@ export function ResetPassword() {
             }}
             validationSchema={yup.object().shape({
               password: yup.string()
-							.required('Senha obrigatória!')
-							.min(6, 'Senha é muito curta, mínimo de ${min} caracteres!')
-							.matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{0,}$/, 'Senha deve conter apenas letras e números!'),
+							.required(requiredError)
+							.min(6, minError)
+							.matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{0,}$/, matchError),
               confirmPassword: yup.string().required(requiredError).oneOf([yup.ref('password'), null], samePasswordError),
             })}
             onSubmit={handleSubmitForm}
